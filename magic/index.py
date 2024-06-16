@@ -45,7 +45,7 @@ def summarize(article):
             do_sample=False)
         )
 
-url = 'https://www.newtimes.co.rw/article/17689/news/health/kagame-mulls-remuneration-of-community-health-workers'
+#url = 'https://www.newtimes.co.rw/article/17689/news/health/kagame-mulls-remuneration-of-community-health-workers'
 
 if __name__ =="__main__":
     # print(pull_from_web(url))
