@@ -3,6 +3,9 @@ import requests
 import json
 from transformers import pipeline
 
+
+root = "https://www.newtimes.co.rw/rwanda"
+
 def pull_from_web(url):
     try:
         urll = requests.get(url)
@@ -17,19 +20,33 @@ def pull_from_web(url):
     except:
         return f"enable to retrieve with {urll.status_code}"
 
-
+def allArticle():
+    links =[]
+    urll = requests.get(root)
+    sup = BeautifulSoup(urll.text, 'html.parser')
+    content_links = sup.find_all('div', class_ = "nt-latest-articles paddingDefault")
+    if content_links:
+        content_linkx = sup.find_all('div', class_ = "article-title")
+        for lin in content_linkx:
+            linkx = lin.find('a', href=True)
+            if linkx:
+                links.append(linkx['href'])
+    for rink in links:
+        print (pull_from_web(rink))
+        print("\n---")
 
 def summarize(article):
     summarize_body = pipeline("summarization", model="facebook/bart-large-cnn")
     return (
         summarize_body(
             article,
-            max_length=250, 
-            min_length=30, 
+            max_length=350, 
+            min_length=200, 
             do_sample=False)
         )
 
 url = 'https://www.newtimes.co.rw/article/17689/news/health/kagame-mulls-remuneration-of-community-health-workers'
 
 if __name__ =="__main__":
-    print(pull_from_web(url))
+    # print(pull_from_web(url))
+    print(allArticle())
