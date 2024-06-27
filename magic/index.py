@@ -16,36 +16,37 @@ def pull_from_web(url):
             article_body = json_cont.get('articleBody', None)
             article_title = json_cont.get('headline', None)
             inshamake = summarize(article_body)
-            return (f"Title: {article_title} \n{inshamake[0].get('summary_text')}")
-    except:
-        return f"enable to retrieve with {urll.status_code}"
+            return {"Title": article_title,
+                    "body": inshamake[0].get('summary_text')
+                    }
+    except Exception as e:
+        return f"enable to retrieve with {str(e)}"
 
 def allArticle():
-    links =[]
+    articles = []
     urll = requests.get(root)
     sup = BeautifulSoup(urll.text, 'html.parser')
-    content_links = sup.find_all('div', class_ = "nt-latest-articles paddingDefault")
+    content_links = sup.find_all('div', class_ = "article-title")
     if content_links:
-        content_linkx = sup.find_all('div', class_ = "article-title")
-        for lin in content_linkx:
+        for lin in content_links[6:11]:
             linkx = lin.find('a', href=True)
             if linkx:
-                links.append(linkx['href'])
-    for rink in links:
-        print (pull_from_web(rink))
-        print("\n---")
+                art = pull_from_web(linkx['href'])
+                if "error" not in art:
+                    articles.append(art)
+                print(pull_from_web(linkx['href']))
+                print('\n')
+    return articles 
 
 def summarize(article):
     summarize_body = pipeline("summarization", model="facebook/bart-large-cnn")
     return (
         summarize_body(
             article,
-            max_length=350, 
-            min_length=200, 
+            max_length=130, 
+            min_length=30, 
             do_sample=False)
         )
-
-#url = 'https://www.newtimes.co.rw/article/17689/news/health/kagame-mulls-remuneration-of-community-health-workers'
 
 if __name__ =="__main__":
     # print(pull_from_web(url))

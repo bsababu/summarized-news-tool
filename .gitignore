@@ -5,10 +5,10 @@
 /.pnp
 .pnp.js
 .env
-test.ipynb
+*.ipynb
+api/db.sqlite3
 # testing
 /coverage
-
 # production
 /build
 

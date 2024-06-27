@@ -36,8 +36,8 @@ def allArticle():
                 art = pull_from_web(linkx['href'])
                 if "error" not in art:
                     articles.append(art)
-                print(pull_from_web(linkx['href']))
-                print('\n')
+                # print(pull_from_web(linkx['href']))
+                # print('\n')
     return articles
 
 def summarize(article):
