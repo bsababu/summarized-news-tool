@@ -34,9 +34,30 @@ def allArticle():
                 art = pull_from_web(linkx['href'])
                 if "error" not in art:
                     articles.append(art)
-                print(pull_from_web(linkx['href']))
-                print('\n')
-    return articles 
+                #print(pull_from_web(linkx['href']))
+                return pull_from_web(linkx['href'] + '\n')
+                #print('\n')
+    for linn in articles:
+        return linn
+    #return articles 
+
+def allArticle_2():
+    urll = requests.get(root)
+    sup = BeautifulSoup(urll.text, 'html.parser')
+    content_links = sup.find_all('div', class_="article-title")
+    
+    if content_links:
+        for lin in content_links[6:11]:
+            linkx = lin.find('a', href=True)
+            if linkx:
+                art = pull_from_web(linkx['href'])
+                if "error" not in art:
+                    yield art
+
+def _process():
+    for article in allArticle_2():
+        print(article)
+        print('\n')
 
 def summarize(article):
     summarize_body = pipeline("summarization", model="facebook/bart-large-cnn")
@@ -50,4 +71,5 @@ def summarize(article):
 
 if __name__ =="__main__":
     # print(pull_from_web(url))
-    print(allArticle())
+    #print(allArticle())
+    print(_process())
