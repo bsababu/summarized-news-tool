@@ -10,7 +10,7 @@ api/db.sqlite3
 /coverage
 # production
 /build
-
+/cover
 # misc
 .DS_Store
 .env.local
