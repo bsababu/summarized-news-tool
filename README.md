@@ -36,4 +36,6 @@ streamlit run app.py
 
 !["Running on browser"](public/ai-agent.png)
 
+!["Emails received"](public/emails.png)
+
 You can read more of by following this [link](https://dev.to/sababu_/ai-from-home-to-new-home-36kk-temp-slug-2894209?preview=a9f37259d63215e9d5c47fecbaee24712c1baa2e3b4130c84e2b1e9e900601e100e43705d159e79f9414fb7e7f8a6f4d3bd218c4fb165050b2069f99), I explain the reason why I decided to work on this project.
