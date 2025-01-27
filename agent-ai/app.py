@@ -105,7 +105,7 @@ with st.sidebar:
     search_button = st.button("Search")
 
 if email:
-    st.success(f"Email registered: {email}")
+    st.success(f"Email to receive news: {email}")
     if st.button("Start Hourly Summaries"):
         st.write("Fetching and summarizing articles...")
         email_body = fetch_summarize_and_display()
